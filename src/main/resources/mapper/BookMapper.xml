@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxy.scientific_research.mapper.BookMapper">
+  <resultMap id="BaseResultMap" type="com.zxy.scientific_research.bean.Book">
+    <id column="bno" jdbcType="VARCHAR" property="bno" />
+    <result column="bname" jdbcType="VARCHAR" property="bname" />
+    <result column="bleader" jdbcType="VARCHAR" property="bleader" />
+    <result column="bgrade" jdbcType="SMALLINT" property="bgrade" />
+    <result column="bstatus" jdbcType="VARCHAR" property="bstatus" />
+    <result column="bstarttime" jdbcType="VARCHAR" property="bstarttime" />
+    <result column="bupdatetime" jdbcType="VARCHAR" property="bupdatetime" />
+    <result column="bendtime" jdbcType="VARCHAR" property="bendtime" />
+    <result column="bts" jdbcType="VARCHAR" property="bts" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    bno, bname, bleader, bgrade, bstatus, bstarttime, bupdatetime, bendtime, bts
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from book
+    where bno = #{bno,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from book
+    where bno = #{bno,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxy.scientific_research.bean.Book">
+    insert into book (bno, bname, bleader, 
+      bgrade, bstatus, bstarttime, 
+      bupdatetime, bendtime, bts
+      )
+    values (#{bno,jdbcType=VARCHAR}, #{bname,jdbcType=VARCHAR}, #{bleader,jdbcType=VARCHAR}, 
+      #{bgrade,jdbcType=SMALLINT}, #{bstatus,jdbcType=VARCHAR}, #{bstarttime,jdbcType=VARCHAR}, 
+      #{bupdatetime,jdbcType=VARCHAR}, #{bendtime,jdbcType=VARCHAR}, #{bts,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxy.scientific_research.bean.Book">
+    insert into book
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bno != null">
+        bno,
+      </if>
+      <if test="bname != null">
+        bname,
+      </if>
+      <if test="bleader != null">
+        bleader,
+      </if>
+      <if test="bgrade != null">
+        bgrade,
+      </if>
+      <if test="bstatus != null">
+        bstatus,
+      </if>
+      <if test="bstarttime != null">
+        bstarttime,
+      </if>
+      <if test="bupdatetime != null">
+        bupdatetime,
+      </if>
+      <if test="bendtime != null">
+        bendtime,
+      </if>
+      <if test="bts != null">
+        bts,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bno != null">
+        #{bno,jdbcType=VARCHAR},
+      </if>
+      <if test="bname != null">
+        #{bname,jdbcType=VARCHAR},
+      </if>
+      <if test="bleader != null">
+        #{bleader,jdbcType=VARCHAR},
+      </if>
+      <if test="bgrade != null">
+        #{bgrade,jdbcType=SMALLINT},
+      </if>
+      <if test="bstatus != null">
+        #{bstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="bstarttime != null">
+        #{bstarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="bupdatetime != null">
+        #{bupdatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="bendtime != null">
+        #{bendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="bts != null">
+        #{bts,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxy.scientific_research.bean.Book">
+    update book
+    <set>
+      <if test="bname != null">
+        bname = #{bname,jdbcType=VARCHAR},
+      </if>
+      <if test="bleader != null">
+        bleader = #{bleader,jdbcType=VARCHAR},
+      </if>
+      <if test="bgrade != null">
+        bgrade = #{bgrade,jdbcType=SMALLINT},
+      </if>
+      <if test="bstatus != null">
+        bstatus = #{bstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="bstarttime != null">
+        bstarttime = #{bstarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="bupdatetime != null">
+        bupdatetime = #{bupdatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="bendtime != null">
+        bendtime = #{bendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="bts != null">
+        bts = #{bts,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bno = #{bno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxy.scientific_research.bean.Book">
+    update book
+    set bname = #{bname,jdbcType=VARCHAR},
+      bleader = #{bleader,jdbcType=VARCHAR},
+      bgrade = #{bgrade,jdbcType=SMALLINT},
+      bstatus = #{bstatus,jdbcType=VARCHAR},
+      bstarttime = #{bstarttime,jdbcType=VARCHAR},
+      bupdatetime = #{bupdatetime,jdbcType=VARCHAR},
+      bendtime = #{bendtime,jdbcType=VARCHAR},
+      bts = #{bts,jdbcType=VARCHAR}
+    where bno = #{bno,jdbcType=VARCHAR}
+  </update>
+
+  <!--根据bnoList查询-->
+  <select id="findsByBnos" parameterType="java.util.ArrayList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from book
+    where bno in
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+
+  <!--查询所有-->
+  <select id="findAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from book
+  </select>
+
+  <!--根据编号修改状态-->
+  <update id="updateStatusByBno"  parameterType="java.lang.String">
+    update book
+    set bstatus = #{bstatus,jdbcType=VARCHAR}
+    where bno = #{bno,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

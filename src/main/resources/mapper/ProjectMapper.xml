@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxy.scientific_research.mapper.ProjectMapper">
+  <resultMap id="BaseResultMap" type="com.zxy.scientific_research.bean.Project">
+    <id column="pno" jdbcType="VARCHAR" property="pno" />
+    <result column="pname" jdbcType="VARCHAR" property="pname" />
+    <result column="pleader" jdbcType="VARCHAR" property="pleader" />
+    <result column="pgrade" jdbcType="SMALLINT" property="pgrade" />
+    <result column="pstatus" jdbcType="VARCHAR" property="pstatus" />
+    <result column="pstarttime" jdbcType="VARCHAR" property="pstarttime" />
+    <result column="pupdatetime" jdbcType="VARCHAR" property="pupdatetime" />
+    <result column="pendtime" jdbcType="VARCHAR" property="pendtime" />
+    <result column="pts" jdbcType="VARCHAR" property="pts" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pno, pname, pleader, pgrade, pstatus, pstarttime, pupdatetime, pendtime, pts
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from project
+    where pno = #{pno,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from project
+    where pno = #{pno,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxy.scientific_research.bean.Project">
+    insert into project (pno, pname, pleader, 
+      pgrade, pstatus, pstarttime, 
+      pupdatetime, pendtime, pts
+      )
+    values (#{pno,jdbcType=VARCHAR}, #{pname,jdbcType=VARCHAR}, #{pleader,jdbcType=VARCHAR}, 
+      #{pgrade,jdbcType=SMALLINT}, #{pstatus,jdbcType=VARCHAR}, #{pstarttime,jdbcType=VARCHAR}, 
+      #{pupdatetime,jdbcType=VARCHAR}, #{pendtime,jdbcType=VARCHAR}, #{pts,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxy.scientific_research.bean.Project">
+    insert into project
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pno != null">
+        pno,
+      </if>
+      <if test="pname != null">
+        pname,
+      </if>
+      <if test="pleader != null">
+        pleader,
+      </if>
+      <if test="pgrade != null">
+        pgrade,
+      </if>
+      <if test="pstatus != null">
+        pstatus,
+      </if>
+      <if test="pstarttime != null">
+        pstarttime,
+      </if>
+      <if test="pupdatetime != null">
+        pupdatetime,
+      </if>
+      <if test="pendtime != null">
+        pendtime,
+      </if>
+      <if test="pts != null">
+        pts,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pno != null">
+        #{pno,jdbcType=VARCHAR},
+      </if>
+      <if test="pname != null">
+        #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="pleader != null">
+        #{pleader,jdbcType=VARCHAR},
+      </if>
+      <if test="pgrade != null">
+        #{pgrade,jdbcType=SMALLINT},
+      </if>
+      <if test="pstatus != null">
+        #{pstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="pstarttime != null">
+        #{pstarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="pupdatetime != null">
+        #{pupdatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="pendtime != null">
+        #{pendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="pts != null">
+        #{pts,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxy.scientific_research.bean.Project">
+    update project
+    <set>
+      <if test="pname != null">
+        pname = #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="pleader != null">
+        pleader = #{pleader,jdbcType=VARCHAR},
+      </if>
+      <if test="pgrade != null">
+        pgrade = #{pgrade,jdbcType=SMALLINT},
+      </if>
+      <if test="pstatus != null">
+        pstatus = #{pstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="pstarttime != null">
+        pstarttime = #{pstarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="pupdatetime != null">
+        pupdatetime = #{pupdatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="pendtime != null">
+        pendtime = #{pendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="pts != null">
+        pts = #{pts,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pno = #{pno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxy.scientific_research.bean.Project">
+    update project
+    set pname = #{pname,jdbcType=VARCHAR},
+      pleader = #{pleader,jdbcType=VARCHAR},
+      pgrade = #{pgrade,jdbcType=SMALLINT},
+      pstatus = #{pstatus,jdbcType=VARCHAR},
+      pstarttime = #{pstarttime,jdbcType=VARCHAR},
+      pupdatetime = #{pupdatetime,jdbcType=VARCHAR},
+      pendtime = #{pendtime,jdbcType=VARCHAR},
+      pts = #{pts,jdbcType=VARCHAR}
+    where pno = #{pno,jdbcType=VARCHAR}
+  </update>
+
+  <!--查询所有-->
+  <select id="findAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from project
+  </select>
+
+  <!--根据编号修改状态-->
+  <update id="updateStatusByPno"  parameterType="java.lang.String">
+    update project
+    set pstatus = #{pstatus,jdbcType=VARCHAR}
+    where pno = #{pno,jdbcType=VARCHAR}
+  </update>
+
+  <!--根据pnoList查询-->
+  <select id="findsByPnos" parameterType="java.util.ArrayList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from project
+    where pno in 
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+</mapper>

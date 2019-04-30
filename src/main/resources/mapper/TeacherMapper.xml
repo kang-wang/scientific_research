@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxy.scientific_research.mapper.TeacherMapper">
+  <resultMap id="BaseResultMap" type="com.zxy.scientific_research.bean.Teacher">
+    <id column="tno" jdbcType="VARCHAR" property="tno" />
+    <result column="tname" jdbcType="VARCHAR" property="tname" />
+    <result column="tsex" jdbcType="SMALLINT" property="tsex" />
+    <result column="ttel" jdbcType="VARCHAR" property="ttel" />
+    <result column="tdept" jdbcType="VARCHAR" property="tdept" />
+    <result column="tduty" jdbcType="VARCHAR" property="tduty" />
+    <result column="tpass" jdbcType="VARCHAR" property="tpass" />
+    <result column="temail" jdbcType="VARCHAR" property="temail" />
+    <result column="tstatus" jdbcType="VARCHAR" property="tstatus" />
+    <result column="tts" jdbcType="VARCHAR" property="tts" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tno, tname, tsex, ttel, tdept, tduty, tpass, temail, tstatus, tts
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from teacher
+    where tno = #{tno,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from teacher
+    where tno = #{tno,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxy.scientific_research.bean.Teacher">
+    insert into teacher (tno, tname, tsex, 
+      ttel, tdept, tduty, 
+      tpass, temail, tstatus, 
+      tts)
+    values (#{tno,jdbcType=VARCHAR}, #{tname,jdbcType=VARCHAR}, #{tsex,jdbcType=SMALLINT}, 
+      #{ttel,jdbcType=VARCHAR}, #{tdept,jdbcType=VARCHAR}, #{tduty,jdbcType=VARCHAR}, 
+      #{tpass,jdbcType=VARCHAR}, #{temail,jdbcType=VARCHAR}, #{tstatus,jdbcType=VARCHAR}, 
+      #{tts,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxy.scientific_research.bean.Teacher">
+    insert into teacher
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tno != null">
+        tno,
+      </if>
+      <if test="tname != null">
+        tname,
+      </if>
+      <if test="tsex != null">
+        tsex,
+      </if>
+      <if test="ttel != null">
+        ttel,
+      </if>
+      <if test="tdept != null">
+        tdept,
+      </if>
+      <if test="tduty != null">
+        tduty,
+      </if>
+      <if test="tpass != null">
+        tpass,
+      </if>
+      <if test="temail != null">
+        temail,
+      </if>
+      <if test="tstatus != null">
+        tstatus,
+      </if>
+      <if test="tts != null">
+        tts,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tno != null">
+        #{tno,jdbcType=VARCHAR},
+      </if>
+      <if test="tname != null">
+        #{tname,jdbcType=VARCHAR},
+      </if>
+      <if test="tsex != null">
+        #{tsex,jdbcType=SMALLINT},
+      </if>
+      <if test="ttel != null">
+        #{ttel,jdbcType=VARCHAR},
+      </if>
+      <if test="tdept != null">
+        #{tdept,jdbcType=VARCHAR},
+      </if>
+      <if test="tduty != null">
+        #{tduty,jdbcType=VARCHAR},
+      </if>
+      <if test="tpass != null">
+        #{tpass,jdbcType=VARCHAR},
+      </if>
+      <if test="temail != null">
+        #{temail,jdbcType=VARCHAR},
+      </if>
+      <if test="tstatus != null">
+        #{tstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="tts != null">
+        #{tts,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxy.scientific_research.bean.Teacher">
+    update teacher
+    <set>
+      <if test="tname != null">
+        tname = #{tname,jdbcType=VARCHAR},
+      </if>
+      <if test="tsex != null">
+        tsex = #{tsex,jdbcType=SMALLINT},
+      </if>
+      <if test="ttel != null">
+        ttel = #{ttel,jdbcType=VARCHAR},
+      </if>
+      <if test="tdept != null">
+        tdept = #{tdept,jdbcType=VARCHAR},
+      </if>
+      <if test="tduty != null">
+        tduty = #{tduty,jdbcType=VARCHAR},
+      </if>
+      <if test="tpass != null">
+        tpass = #{tpass,jdbcType=VARCHAR},
+      </if>
+      <if test="temail != null">
+        temail = #{temail,jdbcType=VARCHAR},
+      </if>
+      <if test="tstatus != null">
+        tstatus = #{tstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="tts != null">
+        tts = #{tts,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tno = #{tno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxy.scientific_research.bean.Teacher">
+    update teacher
+    set tname = #{tname,jdbcType=VARCHAR},
+      tsex = #{tsex,jdbcType=SMALLINT},
+      ttel = #{ttel,jdbcType=VARCHAR},
+      tdept = #{tdept,jdbcType=VARCHAR},
+      tduty = #{tduty,jdbcType=VARCHAR},
+      tpass = #{tpass,jdbcType=VARCHAR},
+      temail = #{temail,jdbcType=VARCHAR},
+      tstatus = #{tstatus,jdbcType=VARCHAR},
+      tts = #{tts,jdbcType=VARCHAR}
+    where tno = #{tno,jdbcType=VARCHAR}
+  </update>
+  <!--查询所有-->
+  <select id="findAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from teacher
+  </select>
+  <!--根据tname查询-->
+  <select id="findListByTname" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from teacher
+    where tname = #{tname,jdbcType=VARCHAR}
+  </select>
+  <!--修改密码-->
+  <update id="updatePassByPrimaryKey" parameterType="com.zxy.scientific_research.bean.Teacher">
+    update teacher
+    set tpass = #{tpass,jdbcType=VARCHAR}
+    where tno = #{tno,jdbcType=VARCHAR}
+  </update>
+
+  <!--根据条件查询教师-->
+  <select id="findByTnos" parameterType="java.util.HashSet" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from teacher
+    where tno in
+    <foreach collection="collection" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+</mapper>

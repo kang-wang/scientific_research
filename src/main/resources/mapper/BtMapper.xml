@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxy.scientific_research.mapper.BtMapper">
+  <resultMap id="BaseResultMap" type="com.zxy.scientific_research.bean.Bt">
+    <id column="btno" jdbcType="INTEGER" property="btno" />
+    <result column="bno" jdbcType="VARCHAR" property="bno" />
+    <result column="tno" jdbcType="VARCHAR" property="tno" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    btno, bno, tno
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bt
+    where btno = #{btno,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bt
+    where btno = #{btno,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zxy.scientific_research.bean.Bt">
+    insert into bt (btno, bno, tno
+      )
+    values (#{btno,jdbcType=INTEGER}, #{bno,jdbcType=VARCHAR}, #{tno,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxy.scientific_research.bean.Bt">
+    insert into bt
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="btno != null">
+        btno,
+      </if>
+      <if test="bno != null">
+        bno,
+      </if>
+      <if test="tno != null">
+        tno,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="btno != null">
+        #{btno,jdbcType=INTEGER},
+      </if>
+      <if test="bno != null">
+        #{bno,jdbcType=VARCHAR},
+      </if>
+      <if test="tno != null">
+        #{tno,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxy.scientific_research.bean.Bt">
+    update bt
+    <set>
+      <if test="bno != null">
+        bno = #{bno,jdbcType=VARCHAR},
+      </if>
+      <if test="tno != null">
+        tno = #{tno,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where btno = #{btno,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxy.scientific_research.bean.Bt">
+    update bt
+    set bno = #{bno,jdbcType=VARCHAR},
+      tno = #{tno,jdbcType=VARCHAR}
+    where btno = #{btno,jdbcType=INTEGER}
+  </update>
+
+  <!--根据bno和tno查询-->
+  <select id="selectByBnoAndTno" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from bt
+    where bno = #{bno,jdbcType=VARCHAR} and tno = #{tno,jdbcType=VARCHAR}
+  </select>
+
+  <!--根据教师查询著作-->
+  <select id="findListByTno" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from bt
+    where tno = #{tno,jdbcType=VARCHAR}
+  </select>
+
+  <!--根据著作查询教师-->
+  <select id="findListByBno" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from bt
+    where bno = #{bno,jdbcType=VARCHAR}
+  </select>
+
+  <!--根据bno删除对应教师与著作的对应关系-->
+  <delete id="deleteByBno" parameterType="java.lang.String">
+    delete from bt
+    where bno = #{bno,jdbcType=VARCHAR}
+  </delete>
+
+  <!--根据tno删除对应教师与著作的对应关系-->
+  <delete id="deleteByTno" parameterType="java.lang.String">
+    delete from bt
+    where tno = #{tno,jdbcType=VARCHAR}
+  </delete>
+</mapper>

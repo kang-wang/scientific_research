@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxy.scientific_research.mapper.EssayMapper">
+  <resultMap id="BaseResultMap" type="com.zxy.scientific_research.bean.Essay">
+    <id column="eno" jdbcType="VARCHAR" property="eno" />
+    <result column="ename" jdbcType="VARCHAR" property="ename" />
+    <result column="eleader" jdbcType="VARCHAR" property="eleader" />
+    <result column="egrade" jdbcType="VARCHAR" property="egrade" />
+    <result column="estatus" jdbcType="VARCHAR" property="estatus" />
+    <result column="estarttime" jdbcType="VARCHAR" property="estarttime" />
+    <result column="eupdatetime" jdbcType="VARCHAR" property="eupdatetime" />
+    <result column="eendtime" jdbcType="VARCHAR" property="eendtime" />
+    <result column="ets" jdbcType="VARCHAR" property="ets" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    eno, ename, eleader, egrade, estatus, estarttime, eupdatetime, eendtime, ets
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from essay
+    where eno = #{eno,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from essay
+    where eno = #{eno,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxy.scientific_research.bean.Essay">
+    insert into essay (eno, ename, eleader, 
+      egrade, estatus, estarttime, 
+      eupdatetime, eendtime, ets
+      )
+    values (#{eno,jdbcType=VARCHAR}, #{ename,jdbcType=VARCHAR}, #{eleader,jdbcType=VARCHAR}, 
+      #{egrade,jdbcType=VARCHAR}, #{estatus,jdbcType=VARCHAR}, #{estarttime,jdbcType=VARCHAR}, 
+      #{eupdatetime,jdbcType=VARCHAR}, #{eendtime,jdbcType=VARCHAR}, #{ets,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxy.scientific_research.bean.Essay">
+    insert into essay
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="eno != null">
+        eno,
+      </if>
+      <if test="ename != null">
+        ename,
+      </if>
+      <if test="eleader != null">
+        eleader,
+      </if>
+      <if test="egrade != null">
+        egrade,
+      </if>
+      <if test="estatus != null">
+        estatus,
+      </if>
+      <if test="estarttime != null">
+        estarttime,
+      </if>
+      <if test="eupdatetime != null">
+        eupdatetime,
+      </if>
+      <if test="eendtime != null">
+        eendtime,
+      </if>
+      <if test="ets != null">
+        ets,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="eno != null">
+        #{eno,jdbcType=VARCHAR},
+      </if>
+      <if test="ename != null">
+        #{ename,jdbcType=VARCHAR},
+      </if>
+      <if test="eleader != null">
+        #{eleader,jdbcType=VARCHAR},
+      </if>
+      <if test="egrade != null">
+        #{egrade,jdbcType=VARCHAR},
+      </if>
+      <if test="estatus != null">
+        #{estatus,jdbcType=VARCHAR},
+      </if>
+      <if test="estarttime != null">
+        #{estarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="eupdatetime != null">
+        #{eupdatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="eendtime != null">
+        #{eendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="ets != null">
+        #{ets,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxy.scientific_research.bean.Essay">
+    update essay
+    <set>
+      <if test="ename != null">
+        ename = #{ename,jdbcType=VARCHAR},
+      </if>
+      <if test="eleader != null">
+        eleader = #{eleader,jdbcType=VARCHAR},
+      </if>
+      <if test="egrade != null">
+        egrade = #{egrade,jdbcType=VARCHAR},
+      </if>
+      <if test="estatus != null">
+        estatus = #{estatus,jdbcType=VARCHAR},
+      </if>
+      <if test="estarttime != null">
+        estarttime = #{estarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="eupdatetime != null">
+        eupdatetime = #{eupdatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="eendtime != null">
+        eendtime = #{eendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="ets != null">
+        ets = #{ets,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where eno = #{eno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxy.scientific_research.bean.Essay">
+    update essay
+    set ename = #{ename,jdbcType=VARCHAR},
+      eleader = #{eleader,jdbcType=VARCHAR},
+      egrade = #{egrade,jdbcType=VARCHAR},
+      estatus = #{estatus,jdbcType=VARCHAR},
+      estarttime = #{estarttime,jdbcType=VARCHAR},
+      eupdatetime = #{eupdatetime,jdbcType=VARCHAR},
+      eendtime = #{eendtime,jdbcType=VARCHAR},
+      ets = #{ets,jdbcType=VARCHAR}
+    where eno = #{eno,jdbcType=VARCHAR}
+  </update>
+
+  <!--findAll-->
+  <select id="findAll" resultMap="BaseResultMap">
+  select
+  <include refid="Base_Column_List" />
+  from essay
+  </select>
+
+  <!--根据编号修改状态-->
+  <update id="updateStatusByEno"  parameterType="java.lang.String">
+    update essay
+    set estatus = #{estatus,jdbcType=VARCHAR}
+    where eno = #{eno,jdbcType=VARCHAR}
+  </update>
+
+  <!--根据enoList查询-->
+  <select id="findsByEnos" parameterType="java.util.ArrayList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from essay
+    where eno in
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+</mapper>

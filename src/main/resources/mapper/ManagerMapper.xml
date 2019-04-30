@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zxy.scientific_research.mapper.ManagerMapper">
+  <resultMap id="BaseResultMap" type="com.zxy.scientific_research.bean.Manager">
+    <id column="mno" jdbcType="VARCHAR" property="mno" />
+    <result column="mname" jdbcType="VARCHAR" property="mname" />
+    <result column="mpass" jdbcType="VARCHAR" property="mpass" />
+    <result column="mtatus" jdbcType="VARCHAR" property="mtatus" />
+    <result column="mts" jdbcType="VARCHAR" property="mts" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    mno, mname, mpass, mtatus, mts
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from manager
+    where mno = #{mno,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from manager
+    where mno = #{mno,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxy.scientific_research.bean.Manager">
+    insert into manager (mno, mname, mpass, 
+      mtatus, mts)
+    values (#{mno,jdbcType=VARCHAR}, #{mname,jdbcType=VARCHAR}, #{mpass,jdbcType=VARCHAR}, 
+      #{mtatus,jdbcType=VARCHAR}, #{mts,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxy.scientific_research.bean.Manager">
+    insert into manager
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mno != null">
+        mno,
+      </if>
+      <if test="mname != null">
+        mname,
+      </if>
+      <if test="mpass != null">
+        mpass,
+      </if>
+      <if test="mtatus != null">
+        mtatus,
+      </if>
+      <if test="mts != null">
+        mts,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mno != null">
+        #{mno,jdbcType=VARCHAR},
+      </if>
+      <if test="mname != null">
+        #{mname,jdbcType=VARCHAR},
+      </if>
+      <if test="mpass != null">
+        #{mpass,jdbcType=VARCHAR},
+      </if>
+      <if test="mtatus != null">
+        #{mtatus,jdbcType=VARCHAR},
+      </if>
+      <if test="mts != null">
+        #{mts,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxy.scientific_research.bean.Manager">
+    update manager
+    <set>
+      <if test="mname != null">
+        mname = #{mname,jdbcType=VARCHAR},
+      </if>
+      <if test="mpass != null">
+        mpass = #{mpass,jdbcType=VARCHAR},
+      </if>
+      <if test="mtatus != null">
+        mtatus = #{mtatus,jdbcType=VARCHAR},
+      </if>
+      <if test="mts != null">
+        mts = #{mts,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mno = #{mno,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxy.scientific_research.bean.Manager">
+    update manager
+    set mname = #{mname,jdbcType=VARCHAR},
+      mpass = #{mpass,jdbcType=VARCHAR},
+      mtatus = #{mtatus,jdbcType=VARCHAR},
+      mts = #{mts,jdbcType=VARCHAR}
+    where mno = #{mno,jdbcType=VARCHAR}
+  </update>
+
+  <!--查询所有-->
+  <select id="findAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from manager
+  </select>
+
+  <!--根据编号修改密码-->
+  <update id="updatePassByPrimaryKey" parameterType="com.zxy.scientific_research.bean.Manager">
+    update manager
+    set mpass = #{mpass,jdbcType=VARCHAR}
+    where mno = #{mno,jdbcType=VARCHAR}
+  </update>
+
+  <!--查询管理员数量-->
+  <select id="selectCount" resultType="java.lang.Integer">
+    select count(*) from manager
+  </select>
+</mapper>
